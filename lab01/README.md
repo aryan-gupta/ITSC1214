@@ -1,0 +1,15 @@
+Your assignment is to design and implement a Java class that defines a linked list and to use that class to create a simple linked list in a Java program.  Remember the Source/Input Code feature of NetBeans referenced in the NetBeans Project Presentation.  When you are adding code to a Java program it allows you to quickly and correctly generate required code segments with little effort.
+
+In your program you are to read an input file with an unknown number of data triples.  The input file will be provided for you.  Your program should work for an input file of any size.  Your program should work if the sequence of the triples in the input is changed from run to run.  When executing your program In NetBeans, the working directory is the folder of your project.  To facilitate us evaluating your work, add the file to the project folder you create in NetBeans.  I have not been able to find a way to do this from within NetBeans, but you can do it easily with the Windows File Explorer or similar system utility.  The name of the file that will be provided for you is Lab1InputFile.txt.  Add it to your project folder with exactly that name.  All internal references to the file in your program should be the file name only.  Do not include the full path.
+
+Your program should have the following functionality:
+
+Define a Java class, MyStack. You should design it to be a linked list used as a stack.  It should have a property that is a reference variable to point to the front of your list.  You should include the following functionality with methods in your class:  push an item, pop an item, count the number of items in the list, and a toString function to print a formatted list of the contents of the list.
+Define a second Java class, MyList. You should design it so that its objects can be the items in your MyStack list.  It should have four attributes: course name (a String), course ID (a String), course credit hours (an Integer), and a reference variable (type MyList) to point to the next items in the linked list. 
+Read a name/ID/hours triple for each course from the file, create a MyList object for each course, and push each object into the stack. Remember a new item is always pushed at the top of a stack.
+When all the input items have been pushed onto the stack, print the number of items in the stack by using the count method in the MyStack object. Then print the individual items in the list using the toString method.
+Pop three elements from the list and then print the current count and the remaining items. Remember an element is always popped from the top of a list.
+Your list should handle a special situation. When the list is empty, the reference variable should be equal to null.  You will need to handle the situations when pushing or popping occur when the list is empty. 
+You must implement your list with the classes described above.  You may not use any classes in the Java API.
+
+Submit your work as a .zip file as detailed in the Lab Submission Guidelines document.  Email submissions will not be accepted.

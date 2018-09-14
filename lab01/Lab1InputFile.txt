@@ -1,0 +1,21 @@
+Data Structures and Algorithms
+2214
+3
+Introduction to Computer Science I
+1212
+4
+Introduction to Computer Science II
+1213
+4
+Introduction to Operating Systems and Networking
+3146
+3
+Software Engineering
+3155
+3
+Introduction to Computer Architecture
+3181
+3
+Introduction to Computer Networks
+3166
+3
