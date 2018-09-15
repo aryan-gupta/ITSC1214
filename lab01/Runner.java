@@ -11,40 +11,48 @@ public final class Runner {
         MyList<InputData>  theList  = new MyList<>();
         MyStack<InputData> theStack = new MyStack<>();
 
+		System.out.println("Reading value triplets...");
+
         while (file.hasNext()) {
             String name  = file.nextLine();
             String id    = file.nextLine();
             int    hours = Integer.parseInt(file.nextLine());
 
             theList.add(new InputData(name, id, hours));
-        }
+		}
+		
+		System.out.println("Read lines, pushing into stack...");
 
         for (int i = 0; i < theList.size(); ++i) {
             theStack.push(theList.get(i));
 		}
 		
-		System.out.print("Items on the stack: ");
+		System.out.print("Number of items on the stack: ");
 		System.out.println(theStack.size());
 
 		System.out.print("The Stack as a String: ");
-		System.out.println(theStack);
+		System.out.print(theStack);
+		System.out.println("\n");
 
-		System.out.print("Popping 3 items: ");
+		System.out.println("Popping 3 items... ");
 		int num = 3;
-		while (num --> 3) {
+		while (num --> 0) {
             theStack.pop();
 		}
 
-		System.out.print("Items on the stack: ");
+		System.out.print("Number of items on the stack: ");
 		System.out.println(theStack.size());
 
 		System.out.print("The Stack as a String: ");
-		System.out.println(theStack);
+		System.out.print(theStack);
+		System.out.println("\n");
 
         while (!theStack.empty()) {
             System.out.print("Popped Item: ");
             System.out.println(theStack.pop());
 		}
+
+		System.out.print("Popping an empty stack...");
 		
 		try {
 			theStack.pop();
