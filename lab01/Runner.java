@@ -1,3 +1,8 @@
+/* 
+ * This class runs a test on the MyStack and MyList classes
+ * @author Aryan Gupta
+ * @version 0.2
+ */
 
 import java.util.Scanner;
 import java.lang.Integer;

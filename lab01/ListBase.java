@@ -1,64 +1,123 @@
+/* 
+ * A list base. Contains common methods and algorithms to modify a 
+ * linked-list type structure. Ruberic only described a fwd list, 
+ * however my lack of reading skills made me create a doubly-linked
+ * list. Most functions declared protected because this class is not
+ * supposed to be instantiated on its own. This class is by no means
+ * a full LinkedList impl, I created most of the methods as they were
+ * needed. 
+ * @note One of the issues I see is the size, we can either keep the
+ *       size cached in mSize or we can calculate it on the fly, this
+ *       will help with remove(begin, end), as we dont have to calculate
+ *       the distance between begin and end. 
+ * @author Aryan Gupta
+ * @version 0.7
+ */
 
+public class ListBase<T> /* extends Collection<T> */ {
+    private ListNode<T> mHead; //< Head node
+    private ListNode<T> mTail; //< Tail node
+    private int mSize; //< Size of the list. Prevents traversal-count when inquiring about size
 
-
-
-class ListBase<T> /* extends Collection<T> */ {
-    private ListNode<T> mHead;
-    private ListNode<T> mTail;
-    private int mSize;
-
+    /* 
+     * Returns the head node
+     * @return The head node
+     */
     protected ListNode<T> head() {
         return mHead;
     }
 
+    /* 
+     * Returns the tail node
+     * @return The tail node
+     */
     protected ListNode<T> tail() {
         return mTail;
     }
 
+    /* 
+     * Returns the size of this. Returns (distance between mHead and mTail) - 1
+     * @note Couldn't rename this function size() cause Java inheritance rules
+     * @return the size of this
+     */
     protected int getSize() {
         return mSize;
     }
 
+    /* 
+     * Default C'tor: Creates a empty list with setinal nodes
+     */
     protected ListBase() {
         reset();
     }
 
+    /* 
+     * Creates setinal nodes. There are ways to remove these nodes but
+     * the questions always goes back to performance over memory. Without
+     * setinal nodes, it will have less branching and better performance.
+     * Decided to use setinal nodes cause it makes my life easier and the 
+     * less time I get to see Java, the better.
+     */
     private void createSetinal() {
         mHead = new ListNode<T>(null, null, null);
         mTail = new ListNode<T>(mHead, null, null);
         mHead.next(mTail);
     }
 
+    /* 
+     * Clears the list and recreates the setinal nodes. Thank god for gc
+     * for making this so easy (compared to c++)
+     */
     protected void reset() {
         mSize = 0;
         createSetinal();
     }
 
+    /* 
+     * This abominal function is like taking a Cray supercomputer and 
+     * trying to run Minesweeper on it. Thus, I will refuse to comment
+     * what this does to prevent future self from using it.
+     * \sa MyList<E>.add(int,E) for more info
+     */
     protected ListNode<T> idx2node(int index) {
         ListNode<T> currentNode = mHead.next();
-        // For those who do not know: https://stackoverflow.com/questions/1642028/what-is-the-operator-in-c
+        
         while (index --> 0) {
             currentNode = currentNode.next();
         }
+
         return currentNode;
     }
 
+    /* 
+     * Returns if this is empty and has no elements in it
+     * @return If this has no elements in it
+     */
     protected boolean empty() {
         return mHead.next() == mTail;
     }
 
+    /* 
+     * Finds element T in this
+     * @param data The element to find
+     * @return The node with that data
+     */
     protected ListNode<T> find(T data) {
         ListNode<T> node = mHead.next();
+
         while (node != mTail) {
             if (node.data().equals(data))
-                return node;
+                return node; // break; // If java releases somthing equvilant to c++ constexpr
         }
-        return mTail;
+
+        return node;
     }
 
     /*
-        Inserts a new node before the node with the data
-    */
+     * Inserts a new node before the node with the data
+     * @param node The node to insert before
+     * @param data The data to insert
+     */
     protected void insertNode(ListNode<T> node, T data) {
         // Create new node with proper prev and next
         ListNode<T> newNode = new ListNode<T>(node.prev(), data, node);
@@ -70,19 +129,28 @@ class ListBase<T> /* extends Collection<T> */ {
         ++mSize;
     }
 
-    protected void removeNode(ListNode<T> begin, ListNode<T> end) {
-        assert begin != mHead : "[Error] Removal of head node in ListBase<T>.removeNode(ListNode<T>)";
+    /* 
+     * Removed a series of nodes from this list: [begin, end)
+     * @warning begin node MUST be before end node or it is UB
+     * @param begin The first node to remove
+     * @param end the one-past-end node to remove
+     * @todo Add splicing support to this function
+     * @todo Figure out how to update size in O(1)
+     */
+    // protected void removeNode(ListNode<T> begin, ListNode<T> end) {
+    //     assert begin != mHead : "[Error] Removal of head node in ListBase<T>.removeNode(ListNode<T>,ListNode<T>)";
         
-        while (begin != end) {
-            ListNode<T> toDelete = begin;
-            begin = begin.next();
-            removeNode(toDelete);
-        }
-    }
+    //     // Set begin's previous nodes next pointer to end
+    //     begin.prev().next(end);
+    //     // Set end's prev pointer to begin's prev
+    //     end.prev(begin.prev());
+    // }
 
     /*
-        Removes node from list
-    */
+     * Removes single node from list and returns that node
+     * @param node The node to remove
+     * @return The removed node
+     */
     protected ListNode<T> removeNode(ListNode<T> node) {
         assert node != mHead : "[Error] Removal of head node in ListBase<T>.removeNode(ListNode<T>)";
         assert node != mTail : "[Error] Removal of tail node in ListBase<T>.removeNode(ListNode<T>)";
@@ -97,9 +165,12 @@ class ListBase<T> /* extends Collection<T> */ {
         return node;
     }
 
+    /*
+     * String representation of this object
+     * @return The String representation of this object
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
         ListNode<T> node = mHead.next();
         
         while (node != mTail) {
