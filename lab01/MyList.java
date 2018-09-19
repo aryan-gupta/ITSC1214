@@ -3,7 +3,13 @@
  * This class started out trying to mimic the usablility of java.util.List interface;
  * However, due to the hole that appeard in my wall from my head repeatedly contacting it,
  * I decided to leave the List interface intact and define methods that better utilizes a
- * LinkedList benifits.
+ * LinkedList benefits.
+ *
+ * @note After coding this it came to me that I am too consumed by C++. Java iterators goes from
+ *       one-before-first to the last element, C++ iterators goes from first element to the
+ *       one-past-last element. This changes alot of the algorithms. The iterators in this class
+ *       use C++ interator algorithms with Java Iterators which breaks a lot of things. Ill fix
+ *       it later if I have time
  */
 
 import java.util.Collection;
@@ -21,13 +27,8 @@ final class MyList<E> extends ListBase<E> {
 	 * Returns an iterator to before-the-first element to this
 	 * @return iterator to the head node
 	 */
-	protected MyListIterator<E> iterator() {
+	public MyListIterator<E> iterator() {
         return new MyListIterator<E>(head(), head(), tail());
-	}
-
-	public void insert(MyListIterator<E> loc, E data) {
-		ListNode<E> node = loc.getNode(FRIEND_CLASS);
-		insertNode(node, data);
 	}
 
 	/*
@@ -57,9 +58,16 @@ final class MyList<E> extends ListBase<E> {
 	 * Adds the element \p element at the index \p index
 	 * @param index The index to add the element to
 	 * @param element The item to add
+	 * @deprecated
 	 */
+	@Deprecated
 	public void add(int index, E element) {
 		insertNode(idx2node(index), element);
+	}
+
+	public void add(MyListIterator<E> loc, E data) {
+		ListNode<E> node = loc.getNode(FRIEND_CLASS);
+		insertNode(node, data);
 	}
 
 	/*
@@ -84,7 +92,9 @@ final class MyList<E> extends ListBase<E> {
 	 * @param index The index to start adding elements
 	 * @param c The collection to add from
 	 * @return Always returns true
+	 * @deprecated
 	 */
+	@Deprecated
 	public boolean addAll(int index, Collection<? extends E> c) {
 		Iterator<?> it = c.iterator();
 
@@ -92,6 +102,18 @@ final class MyList<E> extends ListBase<E> {
 			@SuppressWarnings("unchecked")
 			E e = (E)it.next();
 			add(index++, e);
+		}
+
+		return true;
+	}
+
+	public boolean addAll(MyListIterator<E> loc, Collection<? extends E> c) {
+		Iterator<?> it = c.iterator();
+
+		while (it.hasNext()) {
+			@SuppressWarnings("unchecked")
+			E e = (E)it.next();
+			add(loc, e);
 		}
 
 		return true;
@@ -141,9 +163,15 @@ final class MyList<E> extends ListBase<E> {
 	 * Returns the i'th element in this, where i == \p index
 	 * @param index The index of the element to get
 	 * @return The element at \p index
+	 * @deprecated
 	 */
+	@Deprecated
 	public E get(int index) {
 		return idx2node(index).data();
+	}
+
+	public E get(MyListIterator<E> loc) {
+		return loc.getNode(FRIEND_CLASS).data();
 	}
 
 	/*
@@ -158,9 +186,16 @@ final class MyList<E> extends ListBase<E> {
 	 * Removed the element at index \p index
 	 * @param index The index of the element to remove
 	 * @return The removed element
+	 * @deprecated
 	 */
+	@Deprecated
 	public E remove(int index) {
 		return removeNode(idx2node(index)).data();
+	}
+
+	public E remove(MyListIterator<E> loc) {
+		ListNode<E> node = loc.getNode(FRIEND_CLASS);
+		return removeNode(node).data();
 	}
 
 	/*
@@ -204,11 +239,19 @@ final class MyList<E> extends ListBase<E> {
 	 * @param index The index to modify
 	 * @param element The new element to change to
 	 * @return The old element
+	 * @deprecated
 	 */
+	@Deprecated
 	public E set(int index, E element) {
 		ListNode<E> node = idx2node(index);
 		E e = node.data();
 		node.data(element);
+		return e;
+	}
+
+	public E set(MyListIterator<E> loc, E element) {
+		E e = loc.getNode(FRIEND_CLASS).data();
+		loc.getNode(FRIEND_CLASS).data(element);
 		return e;
 	}
 

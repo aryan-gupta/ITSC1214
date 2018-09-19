@@ -43,8 +43,9 @@ public final class Runner {
 
 		System.out.println("\nPushing items into stack...");
 
-        for (int i = 0; i < theList.size(); ++i) {
-            theStack.push(theList.get(i));
+		MyListIterator<InputData> iter = theList.iterator();
+		while (iter.hasNext()) {
+			theStack.push(iter.next());
 		}
 
 		System.out.print("Number of items on the stack: ");
