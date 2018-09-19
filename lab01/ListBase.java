@@ -84,7 +84,9 @@ public class ListBase<T> /* extends Collection<T> */ {
      * trying to run Minesweeper on it. Thus, I will refuse to comment
      * what this does to prevent future self from using it.
      * \sa MyList<E>.add(int,E) for more info
-     */
+     * @deprecated
+	 */
+	@Deprecated
     protected ListNode<T> idx2node(int index) {
         ListNode<T> currentNode = mHead.next();
 

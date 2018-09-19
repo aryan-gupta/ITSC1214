@@ -27,7 +27,7 @@ public final class Runner {
 		}
 
 		System.out.println("Read lines, Iterator test");
-		MyListIterator<?> it = theList.iterator();
+		MyListIterator<InputData> it = theList.iterator();
 		while (it.hasNext()) {
 			System.out.print(it.next());
 			System.out.print(" ");

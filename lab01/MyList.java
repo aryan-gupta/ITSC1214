@@ -65,6 +65,13 @@ final class MyList<E> extends ListBase<E> {
 		insertNode(idx2node(index), element);
 	}
 
+	/*
+	 * Improved version of this.add(int, E)
+	 * This add adds a element to this in O(1) time. Adds the element
+	 * After loc
+	 * @param loc the iterator to the element where to add the element
+	 * @param data the data to add
+	 */
 	public void add(MyListIterator<E> loc, E data) {
 		ListNode<E> node = loc.getNode(FRIEND_CLASS);
 		insertNode(node, data);
@@ -107,6 +114,11 @@ final class MyList<E> extends ListBase<E> {
 		return true;
 	}
 
+	/*
+	 * Adds all the elements from \p c into this
+	 * @param loc the iterator to the element where to start adding the elements
+	 * @param c the collections from which to add the elements
+	 */
 	public boolean addAll(MyListIterator<E> loc, Collection<? extends E> c) {
 		Iterator<?> it = c.iterator();
 
@@ -170,6 +182,11 @@ final class MyList<E> extends ListBase<E> {
 		return idx2node(index).data();
 	}
 
+	/*
+	 * Returns the element pointed by an iterator
+	 * @param loc The iterator to the element to get
+	 * @return The element at \p loc
+	 */
 	public E get(MyListIterator<E> loc) {
 		return loc.getNode(FRIEND_CLASS).data();
 	}
@@ -193,6 +210,11 @@ final class MyList<E> extends ListBase<E> {
 		return removeNode(idx2node(index)).data();
 	}
 
+	/*
+	 * Removes an element from the list
+	 * @param loc The iterator pointing to the element to remove
+	 * @return The removed element
+	 */
 	public E remove(MyListIterator<E> loc) {
 		ListNode<E> node = loc.getNode(FRIEND_CLASS);
 		return removeNode(node).data();
@@ -249,6 +271,11 @@ final class MyList<E> extends ListBase<E> {
 		return e;
 	}
 
+	/*
+	 * Sets an element to the element \p element
+	 * @param loc The iterator to the element to update
+	 * @param element The new element to change to
+	 */
 	public E set(MyListIterator<E> loc, E element) {
 		E e = loc.getNode(FRIEND_CLASS).data();
 		loc.getNode(FRIEND_CLASS).data(element);
