@@ -1,4 +1,4 @@
-/* 
+/*
  * This class runs a test on the MyStack and MyList classes
  * @author Aryan Gupta
  * @version 0.2
@@ -10,7 +10,7 @@ import java.io.File;
 
 public final class Runner {
     public static void main(String[] args) throws java.io.FileNotFoundException {
-        
+
         Scanner file = new Scanner(new File("Lab1InputFile.txt"));
 
         MyList<InputData>  theList  = new MyList<>();
@@ -25,13 +25,28 @@ public final class Runner {
 
             theList.add(new InputData(name, id, hours));
 		}
-		
-		System.out.println("Read lines, pushing into stack...");
+
+		System.out.println("Read lines, Iterator test");
+		MyListIterator<?> it = theList.iterator();
+		while (it.hasNext()) {
+			System.out.print(it.next());
+			System.out.print(" ");
+		}
+
+		System.out.println("Testing Iterator exception");
+		try {
+			it.moveForward();
+			System.out.println("[Error] Could not catch Exception");
+		} catch (java.util.NoSuchElementException e) {
+			System.out.println("Caught Exception Successfully");
+		}
+
+		System.out.println("\nPushing items into stack...");
 
         for (int i = 0; i < theList.size(); ++i) {
             theStack.push(theList.get(i));
 		}
-		
+
 		System.out.print("Number of items on the stack: ");
 		System.out.println(theStack.size());
 
@@ -58,7 +73,7 @@ public final class Runner {
 		}
 
 		System.out.print("Popping an empty stack...");
-		
+
 		try {
 			theStack.pop();
 			System.out.println("[Error] Could not catch Exception");

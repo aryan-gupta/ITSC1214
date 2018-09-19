@@ -1,23 +1,36 @@
 
 /*
  * This class started out trying to mimic the usablility of java.util.List interface;
- * However, due to the hole that appeard in my wall from my head repeatedly contacting it, 
+ * However, due to the hole that appeard in my wall from my head repeatedly contacting it,
  * I decided to leave the List interface intact and define methods that better utilizes a
- * LinkedList benifits. 
+ * LinkedList benifits.
  */
 
 import java.util.Collection;
 import java.util.Iterator;
 
 final class MyList<E> extends ListBase<E> {
-	/* 
+	/*
 	 * Default C'tor: Constructs an empty list with no data
 	 */
 	public MyList() {
 		super();
 	}
 
-	/* 
+	/*
+	 * Returns an iterator to before-the-first element to this
+	 * @return iterator to the head node
+	 */
+	protected MyListIterator<E> iterator() {
+        return new MyListIterator<E>(head(), head(), tail());
+	}
+
+	public void insert(MyListIterator<E> loc, E data) {
+		ListNode<E> node = loc.getNode(FRIEND_CLASS);
+		insertNode(node, data);
+	}
+
+	/*
 	 * Adds a element to the end of the list
 	 * @param e The element to add
 	 * @return Always returns true
@@ -30,17 +43,17 @@ final class MyList<E> extends ListBase<E> {
 	/*
 	 * @warning Before I begin to explain what this function does, can we please
 	 * discuss how this function is an abomination and an insult to LinkedLists:
-	 * This function adds an element at the index \p index, If this was an array, 
+	 * This function adds an element at the index \p index, If this was an array,
 	 * this function would be cool, but considering that this is a LinkedList, it
-	 * totally ignores the porpose of a LinkedList. A LinkedList has the benifit of 
+	 * totally ignores the porpose of a LinkedList. A LinkedList has the benifit of
 	 * having an O(1) insertion as long as we have a pointer to where we want to insert
 	 * the data. By using this abonimal function, we drop down to a O(n) time. Because we
 	 * first have to iterate through the list until we get to the index. Then we can add
 	 * the data. I understand why this is. java.util.Collection has this method and must be
-	 * somehow implemented, but that just a terrible design. As such, I will be rewriting 
-	 * an interator based List, similar to C++ design if I have time. If not: 
+	 * somehow implemented, but that just a terrible design. As such, I will be rewriting
+	 * an interator based List, similar to C++ design if I have time. If not:
 	 * https://github.com/aryan-gupta/libari/blob/master/include/list.hpp
-	 * 
+	 *
 	 * Adds the element \p element at the index \p index
 	 * @param index The index to add the element to
 	 * @param element The item to add
@@ -49,12 +62,12 @@ final class MyList<E> extends ListBase<E> {
 		insertNode(idx2node(index), element);
 	}
 
-	/* 
+	/*
 	 * Adds all the elements from \p c into this
 	 * @param c The collection to add from
 	 * @return Aways returns true
 	 */
-	public boolean addAll(Collection<? extends E> c) {        
+	public boolean addAll(Collection<? extends E> c) {
 		Iterator<?> it = c.iterator();
 
 		while (it.hasNext()){
@@ -66,7 +79,7 @@ final class MyList<E> extends ListBase<E> {
 		return true;
 	}
 
-	/* 
+	/*
 	 * Adds all the elements from \p c into this at the index \p index
 	 * @param index The index to start adding elements
 	 * @param c The collection to add from
@@ -80,12 +93,12 @@ final class MyList<E> extends ListBase<E> {
 			E e = (E)it.next();
 			add(index++, e);
 		}
-		
+
 		return true;
 	}
 
-	/* 
-	 * Removes all the elemets in this list 
+	/*
+	 * Removes all the elemets in this list
 	 * postcondition: size() == 0
 	 */
 	public void clear() {
@@ -106,7 +119,7 @@ final class MyList<E> extends ListBase<E> {
 		return true;
 	}
 
-	/* 
+	/*
 	 * Checks if all the elements in \p c is in this
 	 * @param c The elements to search from
 	 * @return If all the elements exits in this
@@ -120,11 +133,11 @@ final class MyList<E> extends ListBase<E> {
 			if (!contains(e))
 				return false;
 		}
-		
+
 		return true;
 	}
 
-	/* 
+	/*
 	 * Returns the i'th element in this, where i == \p index
 	 * @param index The index of the element to get
 	 * @return The element at \p index
@@ -133,15 +146,15 @@ final class MyList<E> extends ListBase<E> {
 		return idx2node(index).data();
 	}
 
-	/* 
+	/*
 	 * Returns if this is empty
 	 * @return If this is empty
 	 */
 	public boolean isEmpty() {
 		return empty();
 	}
-	
-	/* 
+
+	/*
 	 * Removed the element at index \p index
 	 * @param index The index of the element to remove
 	 * @return The removed element
@@ -150,7 +163,7 @@ final class MyList<E> extends ListBase<E> {
 		return removeNode(idx2node(index)).data();
 	}
 
-	/* 
+	/*
 	 * Removes all the occurances of \p o
 	 * @param o The object to remove
 	 * @return If data was removed from this
@@ -169,7 +182,7 @@ final class MyList<E> extends ListBase<E> {
 		return removed;
 	}
 
-	/* 
+	/*
 	 * Removes all the elements from this if it is in \p c
 	 * @param c The elements to remove
 	 * @return Always returns true
@@ -182,7 +195,7 @@ final class MyList<E> extends ListBase<E> {
 			E e = (E)it.next();
 			remove(e);
 		}
-		
+
 		return true;
 	}
 
@@ -206,7 +219,7 @@ final class MyList<E> extends ListBase<E> {
 	public int size() {
 		return super.getSize();
 	}
-	
+
 	/*
 	 * Returns the String representation of this
 	 * @return The string representation of this
