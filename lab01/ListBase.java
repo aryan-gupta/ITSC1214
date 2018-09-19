@@ -1,27 +1,25 @@
-/*
- * A list base. Contains common methods and algorithms to modify a
- * linked-list type structure. Ruberic only described a fwd list,
+/* 
+ * A list base. Contains common methods and algorithms to modify a 
+ * linked-list type structure. Ruberic only described a fwd list, 
  * however my lack of reading skills made me create a doubly-linked
  * list. Most functions declared protected because this class is not
  * supposed to be instantiated on its own. This class is by no means
  * a full LinkedList impl, I created most of the methods as they were
- * needed.
+ * needed. 
  * @note One of the issues I see is the size, we can either keep the
  *       size cached in mSize or we can calculate it on the fly, this
  *       will help with remove(begin, end), as we dont have to calculate
- *       the distance between begin and end.
+ *       the distance between begin and end. 
  * @author Aryan Gupta
  * @version 0.7
  */
-
-package Lab01Lists;
 
 public class ListBase<T> /* extends Collection<T> */ {
     private ListNode<T> mHead; //< Head node
     private ListNode<T> mTail; //< Tail node
     private int mSize; //< Size of the list. Prevents traversal-count when inquiring about size
 
-    /*
+    /* 
      * Returns the head node
      * @return The head node
      */
@@ -29,7 +27,7 @@ public class ListBase<T> /* extends Collection<T> */ {
         return mHead;
     }
 
-    /*
+    /* 
      * Returns the tail node
      * @return The tail node
      */
@@ -37,7 +35,7 @@ public class ListBase<T> /* extends Collection<T> */ {
         return mTail;
     }
 
-    /*
+    /* 
      * Returns the size of this. Returns (distance between mHead and mTail) - 1
      * @note Couldn't rename this function size() cause Java inheritance rules
      * @return the size of this
@@ -46,18 +44,18 @@ public class ListBase<T> /* extends Collection<T> */ {
         return mSize;
     }
 
-    /*
+    /* 
      * Default C'tor: Creates a empty list with setinal nodes
      */
     protected ListBase() {
         reset();
     }
 
-    /*
+    /* 
      * Creates setinal nodes. There are ways to remove these nodes but
      * the questions always goes back to performance over memory. Without
      * setinal nodes, it will have less branching and better performance.
-     * Decided to use setinal nodes cause it makes my life easier and the
+     * Decided to use setinal nodes cause it makes my life easier and the 
      * less time I get to see Java, the better.
      */
     private void createSetinal() {
@@ -66,7 +64,7 @@ public class ListBase<T> /* extends Collection<T> */ {
         mHead.next(mTail);
     }
 
-    /*
+    /* 
      * Clears the list and recreates the setinal nodes. Thank god for gc
      * for making this so easy (compared to c++)
      */
@@ -75,15 +73,15 @@ public class ListBase<T> /* extends Collection<T> */ {
         createSetinal();
     }
 
-    /*
-     * This abominal function is like taking a Cray supercomputer and
+    /* 
+     * This abominal function is like taking a Cray supercomputer and 
      * trying to run Minesweeper on it. Thus, I will refuse to comment
      * what this does to prevent future self from using it.
      * \sa MyList<E>.add(int,E) for more info
      */
     protected ListNode<T> idx2node(int index) {
         ListNode<T> currentNode = mHead.next();
-
+        
         while (index --> 0) {
             currentNode = currentNode.next();
         }
@@ -91,7 +89,7 @@ public class ListBase<T> /* extends Collection<T> */ {
         return currentNode;
     }
 
-    /*
+    /* 
      * Returns if this is empty and has no elements in it
      * @return If this has no elements in it
      */
@@ -99,7 +97,7 @@ public class ListBase<T> /* extends Collection<T> */ {
         return mHead.next() == mTail;
     }
 
-    /*
+    /* 
      * Finds element T in this
      * @param data The element to find
      * @return The node with that data
@@ -131,7 +129,7 @@ public class ListBase<T> /* extends Collection<T> */ {
         ++mSize;
     }
 
-    /*
+    /* 
      * Removed a series of nodes from this list: [begin, end)
      * @warning begin node MUST be before end node or it is UB
      * @param begin The first node to remove
@@ -141,7 +139,7 @@ public class ListBase<T> /* extends Collection<T> */ {
      */
     // protected void removeNode(ListNode<T> begin, ListNode<T> end) {
     //     assert begin != mHead : "[Error] Removal of head node in ListBase<T>.removeNode(ListNode<T>,ListNode<T>)";
-
+        
     //     // Set begin's previous nodes next pointer to end
     //     begin.prev().next(end);
     //     // Set end's prev pointer to begin's prev
@@ -174,7 +172,7 @@ public class ListBase<T> /* extends Collection<T> */ {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         ListNode<T> node = mHead.next();
-
+        
         while (node != mTail) {
             sb.append(node.data().toString());
             sb.append(", ");

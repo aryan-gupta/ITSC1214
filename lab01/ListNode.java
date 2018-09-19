@@ -1,5 +1,4 @@
 
-package Lab01List;
 
 public class ListNode<T> {
     private ListNode<T> mPrev;
