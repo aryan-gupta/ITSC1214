@@ -15,10 +15,19 @@
  */
 
 public class ListBase<T> /* extends Collection<T> */ {
+    /*
+     * So this class is weird. The purpose of this class it to make certain functions
+     * only callable by some classes. For example \sa MyListIterator has a function
+     * \sa getNode(FriendClass). The parameter of this function is this class. But because
+     * the constructor of the class is private only ListBase and chile classes can call
+     * the method (only this class and child classes can instantiate the class). There
+     * is more info on where I go this from if you see \sa getNode(FriendClass)
+     */
     public static final class FriendClass {
         private FriendClass() {  }
     }
 
+    /// Single instatiation to revent duplicate class instances
     protected static final FriendClass FRIEND_CLASS = new FriendClass();
 
     private ListNode<T> mHead; //< Head node
@@ -143,16 +152,21 @@ public class ListBase<T> /* extends Collection<T> */ {
      * @param begin The first node to remove
      * @param end the one-past-end node to remove
      * @todo Add splicing support to this function
-     * @todo Figure out how to update size in O(1)
      */
-    // protected void removeNode(ListNode<T> begin, ListNode<T> end) {
-    //     assert begin != mHead : "[Error] Removal of head node in ListBase<T>.removeNode(ListNode<T>,ListNode<T>)";
+    protected void removeNode(ListNode<T> begin, ListNode<T> end) {
+        assert begin != mHead : "[Error] Removal of head node in ListBase<T>.removeNode(ListNode<T>,ListNode<T>)";
 
-    //     // Set begin's previous nodes next pointer to end
-    //     begin.prev().next(end);
-    //     // Set end's prev pointer to begin's prev
-    //     end.prev(begin.prev());
-    // }
+        // Set begin's previous nodes next pointer to end
+        begin.prev().next(end);
+        // Set end's prev pointer to begin's prev
+        end.prev(begin.prev());
+
+        // Go though the nodes and count how many we removed
+        while (begin != end) {
+            --mSize;
+            begin = begin.next();
+        }
+    }
 
     /*
      * Removes single node from list and returns that node

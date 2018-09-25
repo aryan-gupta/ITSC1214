@@ -81,5 +81,7 @@ public final class Runner {
 		} catch (java.util.NoSuchElementException e) {
 			System.out.println("Caught Exception Successfully");
 		}
+
+		sc.close();
     }
 }

@@ -16,6 +16,9 @@ public final class MyListIterator<T> /* implements java.util.Iterator<T> */ {
 	/*
 	 * Constructor that sets up the iterator. The head and tail of the original list must
 	 * be passed into the iterator to preserve some usablility
+	 * @param head The head node from the Container
+	 * @param start The node from which to start from
+	 * @param tail The tail node in the iteration
 	 */
 	public MyListIterator(ListNode<T> head, ListNode<T> start, ListNode<T> tail) {
 		mHead = head;
@@ -41,6 +44,7 @@ public final class MyListIterator<T> /* implements java.util.Iterator<T> */ {
 
 	/*
 	 * Increments the iterator forward
+	 * @todo would inc()/dec() be a better method name?
 	 */
 	public void moveForward() {
 		if (!hasNext())
