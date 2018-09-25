@@ -82,6 +82,6 @@ public final class Runner {
 			System.out.println("Caught Exception Successfully");
 		}
 
-		sc.close();
+		file.close();
     }
 }
