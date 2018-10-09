@@ -1,3 +1,10 @@
+/*
+ * This class runs the other classes and does tests of the BinarySearch algorithm
+ * to verify that it is working.
+ *
+ * @author Aryan Gupta
+ * @date 2018/10/9
+ */
 
 import java.lang.Math;
 import java.util.Arrays;
@@ -8,17 +15,17 @@ import java.util.StringTokenizer;
 
 class BSRunner {
 	public static void main(String[] unused) throws java.io.FileNotFoundException {
-		ArrayItem MainItems[] = parseFile("Lab2InputFile1.txt");
+		ArrayItem MainItems[] = parseFile("Lab2InputFile1.txt"); // create our array of objects
 		ArrayItem SearchItems[] = parseFile("Lab2InputFile2.txt");
 
-		Arrays.sort(MainItems);
+		Arrays.sort(MainItems); // sort them
 
-		System.out.println("Sorted Array: ");
+		System.out.println("Sorted Array: "); // print them
 		for (ArrayItem ai : MainItems) {
 			System.out.println(ai);
 		}
 
-		for (ArrayItem ai : SearchItems) {
+		for (ArrayItem ai : SearchItems) { // seach for our elements
 			int idx = BinarySearch.bsearch(MainItems, ai);
 			if (idx == -1) {
 				System.out.println("Item: " + ai.toString() + " not found");
@@ -28,6 +35,11 @@ class BSRunner {
 		}
 	}
 
+	/*
+	 * Parses a file for Data
+	 * @param filename The name of the file to read
+	 * @return An array of ArrayItems containing the data of \p filename
+	 */
 	public static ArrayItem[] parseFile(String filename) throws java.io.FileNotFoundException {
 		final int MAX_ITEMS = 30;
 
@@ -63,44 +75,5 @@ class BSRunner {
 		}
 
 		return items;
-	}
-
-	public static void testAll() {
-		lookFor(0, 15); // empty set and not found test
-		for (int i = 0; i < 10; ++i) { // edge and mid test
-			lookFor(10, i);
-		}
-	}
-
-	public static void lookFor(int size, int dat) {
-		System.out.println();
-		System.out.println();
-		System.out.println(dat);
-
-		Integer data[] = new Integer[size];
-		for (int i = 0; i < data.length; ++i) {
-			data[i] = i; //(int)(Math.random() * 100);
-		}
-
-		for (Integer a : data) {
-			System.out.print(a);
-			System.out.print(" ");
-		}
-		System.out.println();
-
-		Arrays.sort(data);
-
-		int idx = BinarySearch.bsearch(data, dat);
-
-		for (Integer a : data) {
-			System.out.print(a);
-			System.out.print(" ");
-		}
-		System.out.println();
-
-		if (idx == -1)
-			System.out.println("[I] Not Found");
-		else
-			System.out.println(data[idx]);
 	}
 }
