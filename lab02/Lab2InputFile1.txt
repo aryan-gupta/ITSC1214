@@ -1,0 +1,12 @@
+Black 10
+Brown 22
+Orange 29
+Red 7
+Silver 15
+Tan 17
+White 0
+Yellow 20
+Aqua 15
+Orange 12
+Blue 3
+Silver 30

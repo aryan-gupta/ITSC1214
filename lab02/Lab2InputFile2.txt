@@ -1,0 +1,8 @@
+Brown 22
+Silver 30
+White 10
+Blue 3
+Blue 13
+Yellow 20
+Orange 22
+Orange 90
