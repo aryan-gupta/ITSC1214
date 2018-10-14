@@ -74,6 +74,8 @@ class BSRunner {
 			items[currentIdx] = temp[currentIdx];
 		}
 
+		file.close();
+
 		return items;
 	}
 }
