@@ -48,10 +48,11 @@ class ArrayItem implements Comparable<ArrayItem> { // CRTP in Java? **Mindblown*
 	}
 
 	/*
-	 * Converts this to a string representation <ID>:<COLOR_STR>
+	 * Converts this to a string representation <COLOR_STR>:<ID>
 	 * @return The string representation of this object
 	 */
 	public String toString() {
-		return Integer.toString(ID) + ":" + color;
+		return color + ":" + Integer.toString(ID);
+		// return Integer.toString(ID) + ":" + color;
 	}
 }

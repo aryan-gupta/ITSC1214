@@ -21,8 +21,11 @@ class BSRunner {
 		Arrays.sort(MainItems); // sort them
 
 		System.out.println("Sorted Array: "); // print them
-		for (ArrayItem ai : MainItems) {
-			System.out.println(ai);
+		for (int i = 0; i < MainItems.length; ++i) {
+			if (i < 10) { System.out.print("0"); } // print out `0` for `number < 10` padding (01, 02, ...)
+			System.out.print(i);
+			System.out.print(". ");
+			System.out.println(MainItems[i]);
 		}
 
 		for (ArrayItem ai : SearchItems) { // seach for our elements

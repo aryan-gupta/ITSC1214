@@ -1,0 +1,14 @@
+Your assignment is to design and implement a Java program that reads data into an array and searches that array with a recursive binary search function.  The primary concern of this exercise is for you to write the recursive function, but there is also additional required functionality that you may supply with Java API functions, as noted.
+
+In your program you are to read two input files with an unknown number of data records (character fields separated by spaces and terminated with a new line character).  There will be no more than 30 records per file, and each record will have two fields.  Correctly formatted input files will be provided for you.  You simply need to read the data.  You do not need to validate it.  When executing your program in NetBeans, the working directory is the folder of your project.  To facilitate us evaluating your work, add the files to the project folder you create in NetBeans.  The names of the files that will be provided for you are Lab2InputFile1.txt and Lab2InputFile2.txt.  Add them to your project folder with exactly those names.  All internal references to the file in your program should be these file names only.  Do not include the full path.
+
+Your program should have the following functionality:
+
+Define a Java class, ArrayItem. The class should have two attributes, color (String) and ID (Integer).  You will need to compare objects of this class with each other.    You might also choose to be able to have a formatted print of these objects.
+Declare two arrays of type ArrayItem. The first, MainItems, will be an array that will be searched using the recursive binary search routine.  The second,  SearchItems, will be an array of search objects.
+Read a color and ID from Lab2InputFile1, create an ArrayItem object for each record, and add it to MainItems. Do the same for Lab2InputFile2 and add the objects to SearchItems.
+The Java Arrays class includes the Arrays.sort() function. You may use this function to sort the objects of MainItems to prepare for the binary searches.  Print a brief, formatted report of the sorted objects.  You are encouraged to examine the other functions of the Arrays class, but you may not use any other than sort() for this exercise.  (You might find the Collections class interesting, too.)
+Use a recursive binary search function to search MainItems for each of the SearchItems objects. Print a brief, formatted report telling whether each SearchItems object was found or not.
+You may choose to compare ArrayItem objects either of two ways. For basic credit you may determine equality/greater/less comparing only the IDs.  You will receive five (5) extra points if you compare that both the colors and the IDs.
+
+Submit your work as a .zip file as detailed in the Lab Submission Guidelines document.  Email submissions will not be accepted.
