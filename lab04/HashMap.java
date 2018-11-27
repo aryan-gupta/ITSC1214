@@ -20,6 +20,9 @@ final public class HashMap<K extends Comparable> {
 	private int mSize; // Number of elements in the Table
 	private double mLoadFactor; // max load factor acceptable for the table
 
+	/*
+	 * Construct an empty HashMap
+	 */
 	public HashMap() {
 		mPrimeIdx = 0;
 		@SuppressWarnings("unchecked") HashNode<K>[] tmp = new HashNode[PRIMES[mPrimeIdx]];
@@ -28,13 +31,18 @@ final public class HashMap<K extends Comparable> {
 		mLoadFactor = 0.75;
 	}
 	
-	// Basic accessors and setters
+	/* 
+	 * Basic accessors and setters
+	 */
 	public int size() { return mSize; }
 	public int buckets() { return mTable.length; }
 	public double loadFactor() { return mLoadFactor; }
 	public void loadFactor(double lf) { mLoadFactor = lf; }
 
-	// Add a node into our table
+	/*
+	 * Add a node into our table
+	 * @param newNode The new node to add into our table
+	 */
 	private void add(HashNode<K> newNode) {
 		++mSize;
 		int idx = getIndex(newNode.key());
@@ -47,7 +55,10 @@ final public class HashMap<K extends Comparable> {
 		}
 	}
 
-	// Public interface to adding a key value. Will rehash the table is need be
+	/* 
+	 * Public interface to adding a key value. Will rehash the table if need be.
+	 * @param key The key to add to our table
+	 */
 	public void add(K key) {
 		double clf = (double)mSize / mTable.length;
 		if (clf > mLoadFactor) 
@@ -55,7 +66,10 @@ final public class HashMap<K extends Comparable> {
 		add(new HashNode<K>(key));
 	}
 
-	// Checks if the key is contained in the table 
+	/* 
+	 * Checks if the key is contained in the table 
+	 * @param key The key to look for
+	 */
 	public boolean contains(K key) {
 		int idx = getIndex(key);
 		for (HashNode<K> node = mTable[idx]; node != null; node = node.next()) {
@@ -66,12 +80,22 @@ final public class HashMap<K extends Comparable> {
 		return false;
 	}
 
-	// Returns the index of where the key should go
+	/* 
+	 * Returns the index of where the key should go
+	 * @param key The key to index
+	 */
 	private int getIndex(K key) {
 		int hash = key.hashCode();
 		return hash % mTable.length;
 	}
 
+	/*
+	 * Rehashes the entire table. An improvement would be to 
+	 * store the hash values in the HashNode object so all we would need
+	 * is the mod operator on a rehash, but would cost memory. Rehashing is
+	 * done when the load factor is greater than the specified one. Will
+	 * increase the bucket count and remap the elements to their buckets
+	 */
 	private void rehash() {
 		++mPrimeIdx;
 		mSize = 0;
@@ -88,6 +112,9 @@ final public class HashMap<K extends Comparable> {
 		}
 	}
 
+	/*
+	 * A toString meathod for debugging
+	 */
 	// public String toString() {
 	// 	java.lang.StringBuilder sb = new java.lang.StringBuilder();
 	// 	for (int i = 0; i < mTable.length; ++i) { // go over all the nodes in the old array and move them here
