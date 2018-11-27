@@ -25,7 +25,7 @@ final public class HashMap<K extends Comparable> {
 	 * Construct an empty HashMap
 	 */
 	public HashMap() {
-		mPrimeIdx = 0;
+		mPrimeIdx = 3;
 		@SuppressWarnings("unchecked") HashNode<K>[] tmp = new HashNode[PRIMES[mPrimeIdx]];
 		mTable = tmp;
 		mSize = 0;
@@ -124,6 +124,20 @@ final public class HashMap<K extends Comparable> {
 	}
 
 	/*
+	 * A toString meathod for assignment
+	 */
+	public String toString() {
+		java.lang.StringBuilder sb = new java.lang.StringBuilder();
+		for (int i = 0; i < mTable.length; ++i) { // go over all the nodes in the old array and move them here
+			for (HashNode<K> node = mTable[i]; node != null; node = node.next()) {
+				sb.append(node);
+				sb.append("\n");
+			}
+		}
+		return sb.toString();
+	}
+
+	/*
 	 * A toString meathod for debugging
 	 */
 	// public String toString() {
@@ -131,7 +145,9 @@ final public class HashMap<K extends Comparable> {
 	// 	for (int i = 0; i < mTable.length; ++i) { // go over all the nodes in the old array and move them here
 	// 		for (HashNode<K> node = mTable[i]; node != null; node = node.next()) {
 	// 			sb.append(node.key());
+	// 			sb.append(" ");
 	// 		}
+	// 		// if (mTable[i] != null) 
 	// 		sb.append("\n");
 	// 	}
 	// 	return sb.toString();

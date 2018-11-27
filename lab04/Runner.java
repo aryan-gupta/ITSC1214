@@ -9,6 +9,25 @@ import java.util.Scanner;
 // > The hashing function should manipulate data in a HashObject to produce the Integer hash key.
 
 public final class Runner {
+	/*
+	 * Returns the number of digits in a number recursively
+	 * See Runner.get_digits(int)
+	 */
+	private static int get_digits_recurse(int num, int depth) {
+		if (num == 0) return depth;
+		return get_digits_recurse((int)(num / 10), depth + 1);
+	}
+
+	/*
+	 * Returns the number of digits in a number recursively
+	 *  - 1000 => 4
+	 *  - 1    => 1
+	 *  - 123  => 3
+	 */
+	public static int get_digits(int num) {
+		return get_digits_recurse(num, 1);
+	}
+
 	public static HashMap<HashObject> load_hashmap_file(String fname) throws java.io.FileNotFoundException {
 		java.util.Scanner file = new Scanner(new java.io.File(fname));
 		HashMap<HashObject> ret_val = new HashMap<>();
@@ -43,14 +62,20 @@ public final class Runner {
 		HashMap<HashObject> map = load_hashmap_file("Lab4InputFile1.txt");
 		ArrayList<HashObject> search = load_searchlist_file("Lab4InputFile2.txt");
 
+		System.out.println("Hashtable: Size: " + map.size());
+		System.out.println(map);
+
 		for (HashObject item : search) {
 			System.out.print("Looking for ");
 			System.out.print(item);
+			System.out.print(" with hash ");
+			for (int j = 11 - get_digits(item.hashCode()); j >= 0; --j) System.out.print(" ");
+			System.out.print(item.hashCode());
 			System.out.print(": ");
 			if (map.contains(item)) {
-				System.out.println("Did     find element");
+				System.out.println("Did     find element. ");
 			} else {
-				System.out.println("Did not find element");
+				System.out.println("Did not find element. ");
 			}
 		}
 	}

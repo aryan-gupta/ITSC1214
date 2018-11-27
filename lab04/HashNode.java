@@ -22,10 +22,14 @@ final public class HashNode<K> {
 
 	/// Accessors and setters
 	public int hash() { return mHash; }
-	
+
 	public K key() { return mKey; }
 	public void key(K key) { mKey = key; }
 
 	public HashNode<K> next() { return mNext; }
 	public void next(HashNode<K> next) { mNext = next; }
+
+	public String toString() {
+		return "key: " + mKey.toString() + "  hash: " + mHash;
+	}
 }
