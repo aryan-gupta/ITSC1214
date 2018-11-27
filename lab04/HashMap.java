@@ -45,12 +45,12 @@ final public class HashMap<K extends Comparable> {
 	 */
 	private void add(HashNode<K> newNode) {
 		++mSize;
-		int idx = getIndex(newNode.key());
+		int idx = getIndex(newNode);
 		if (mTable[idx] == null) {
 			mTable[idx] = newNode;
 		} else { // COLLISION
 			HashNode<K> node = mTable[idx];
-			while (node.next() != null) { node = node.next(); }
+			while (node.next() != null) { node = node.next(); } // add to the end of our linked list
 			node.next(newNode);
 		}
 	}
@@ -86,6 +86,16 @@ final public class HashMap<K extends Comparable> {
 	 */
 	private int getIndex(K key) {
 		int hash = key.hashCode();
+		return hash % mTable.length;
+	}
+
+	/* 
+	 * Returns the index of where the key should go.
+	 * This function returns the cached hash from the node object
+	 * @param key The key to index
+	 */
+	private int getIndex(HashNode<K> node) {
+		int hash = node.hash();
 		return hash % mTable.length;
 	}
 
