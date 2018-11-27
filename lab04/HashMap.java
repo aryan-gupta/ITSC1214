@@ -11,6 +11,7 @@
 /// insertions, and deletions, as long as there arent too many collisions. 
 /// I decided to use prime numbers as the bucket count (Array Table length) to farther
 /// intoduce entopy and reduce mapped collisions.  
+@SuppressWarnings("rawtypes")
 final public class HashMap<K extends Comparable> {
 	// A list of primes to prevent Array index from colliding
 	private static final int PRIMES[] = { 11, 23, 47, 101, 199, 401, 797, 1601, 3203, 6397, 12799, 25601, 51199, 102407 }; 
